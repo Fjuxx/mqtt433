@@ -1,5 +1,6 @@
 var mqtt    = require('mqtt');
 var client  = mqtt.connect('mqtt://192.168.1.100');
+var async = require('async');
 
 var homeduinoBoard= require('homeduino').Board;
 var board = new homeduinoBoard("serialport",{
@@ -16,8 +17,11 @@ board.connect(60000).then(function () {
 board.on('rf',function (event) {
 	console.log('RF received');
 	console.log(event.protocol + ' : ' + JSON.stringify(event.values));
-	Object.keys(event.values).forEach(function(item) {
-		client.publish('home/nas/443/'+ event.protocol+'/' + item,event.values[item]);
+	async.forEachOf(Object.keys(event.values),function (value, key, callback) {
+		console.log(key + ' : ' + value);
+		client.publish('home/nas/443/'+ event.protocol+'/' + key,value).then(function () {
+			callback();
+		});	
 	});
 
 });
