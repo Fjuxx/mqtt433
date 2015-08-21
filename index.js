@@ -16,5 +16,8 @@ board.connect(60000).then(function () {
 board.on('rf',function (event) {
 	console.log('RF received');
 	console.log(event.protocol + ' : ' + JSON.stringify(event.values));
-	//client.publish('home/nas/443/'+ event.protocol,event.values);
+	Object.keys(event.values).forEach(function(item) {
+		client.publish('home/nas/443/'+ event.protocol+'/' + item,event.values[item]);
+	});
+
 });
