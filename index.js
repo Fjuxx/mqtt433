@@ -1,5 +1,5 @@
 var homeduino = require('homeduino');
-var board = new homeduino.Board('/dev/ttyUSB0', 115200);
+var board = new homeduino.Board('/dev/ttyUSB1', 115200);
 
 board.connect(function () {
 	console.log('connected');
