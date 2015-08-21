@@ -22,9 +22,9 @@ board.on('rf',function (event) {
 		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.channel.toString() + '/temparature',event.values.temperature.toString());
 		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.channel.toString() + '/humidity',event.values.humidity.toString());
 		console.log("send");
-	} else if (event.protocol == "switch1") {
+	} else if (event.protocol == "switch2") {
 		console.log(event.protocol);
-		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.unit.toString() + '/state',event.values.state.toString());
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.houseCode.toString() + '/' + event.values.unitCode.toString() + '/state',event.values.state.toString());
 		console.log("send");
 	}
 	// async.forEachOf(event.values,function (value, key, callback) {
