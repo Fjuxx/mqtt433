@@ -19,7 +19,7 @@ board.on('rf',function (event) {
 	console.log(event.protocol + ' : ' + JSON.stringify(event.values));
 	async.forEachOf(Object.keys(event.values),function (value, key, callback) {
 		console.log(key + ' : ' + value);
-		client.publish('home/nas/443/'+ event.protocol+'/' + key,value).then(function () {
+		client.publish('home/nas/443/'+ event.protocol+'/' + key,value,0,function () {
 			callback();
 		});	
 	});
