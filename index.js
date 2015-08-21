@@ -24,7 +24,7 @@ board.on('rf',function (event) {
 		console.log("send");
 	} else if (event.protocol == "switch1") {
 		console.log(event.protocol);
-		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.unit.toString() + '/temparature',event.values.state.toString());
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.unit.toString() + '/state',event.values.state.toString());
 		console.log("send");
 	}
 	// async.forEachOf(event.values,function (value, key, callback) {
