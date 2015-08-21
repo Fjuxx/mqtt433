@@ -1,3 +1,6 @@
+var mqtt    = require('mqtt');
+var client  = mqtt.connect('mqtt://192.168.1.100');
+
 var homeduinoBoard= require('homeduino').Board;
 var board = new homeduinoBoard("serialport",{
 	serialDevice :"/dev/ttyUSB1",
@@ -12,5 +15,6 @@ board.connect(60000).then(function () {
 });
 board.on('rf',function (event) {
 	console.log('RF received');
-	console.log(event.protocol + ' : ' + event.values);
+	console.log(event.protocol + ' : ' + JSON.stringify(event.values));
+	//client.publish('home/nas/443/'+ event.protocol,event.values);
 });
