@@ -4,7 +4,7 @@ var board = new homeduinoBoard("serialport",{
 	baudrate: 115200 }
 	);
 
-board.connect(function () {
+board.connect(60000).then(function () {
 	console.log('connected');
 	board.rfControlStartReceiving(0).then(function () {
 		console.log('receiving....');
