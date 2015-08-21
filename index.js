@@ -1,5 +1,8 @@
-var homeduino = require('homeduino');
-var board = new homeduino.Board("serialport","/dev/ttyUSB1", 115200);
+var homeduinoBoard= require('homeduino').Board;
+var board = new homeduinoBoard("serialport",{
+	serialDevice :"/dev/ttyUSB1",
+	baudrate: 115200 }
+	);
 
 board.connect(function () {
 	console.log('connected');
