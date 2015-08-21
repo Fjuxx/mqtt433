@@ -18,10 +18,14 @@ board.on('rf',function (event) {
 	console.log('RF received');
 	console.log(event.protocol + ' : ' + JSON.stringify(event.values));
 	if (event.protocol == "weather1") {
-		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id + '/' + event.values.channel + '/temparature',event.values.temperature);
-		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id + '/' + event.values.channel + '/humidity',event.values.humidity);
+		console.log(event.protocol);
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.channel.toString() + '/temparature',event.values.temperature.toString());
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.channel.toString() + '/humidity',event.values.humidity.toString());
+		console.log("send");
 	} else if (event.protocol == "switch1") {
-		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id + '/' + event.values.unit + '/temparature',event.values.state);
+		console.log(event.protocol);
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id.toString() + '/' + event.values.unit.toString() + '/temparature',event.values.state.toString());
+		console.log("send");
 	}
 	// async.forEachOf(event.values,function (value, key, callback) {
 	// 	console.log(key + ' : ' + value);
