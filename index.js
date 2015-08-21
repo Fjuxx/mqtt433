@@ -17,11 +17,17 @@ board.connect(60000).then(function () {
 board.on('rf',function (event) {
 	console.log('RF received');
 	console.log(event.protocol + ' : ' + JSON.stringify(event.values));
-	async.forEachOf(Object.keys(event.values),function (value, key, callback) {
-		console.log(key + ' : ' + value);
-		client.publish('home/nas/443/'+ event.protocol+'/' + key,value,0,function () {
-			callback();
-		});	
-	});
+	if (event.protocol == "weather1") {
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id + '/' + event.values.channel + '/temparature',event.values.temperature);
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id + '/' + event.values.channel + '/humidity',event.values.humidity);
+	} else if (event.protocol == "switch1") {
+		client.publish('home/nas/443/'+ event.protocol+'/'+event.values.id + '/' + event.values.unit + '/temparature',event.values.state);
+	}
+	// async.forEachOf(event.values,function (value, key, callback) {
+	// 	console.log(key + ' : ' + value);
+	// 	client.publish('home/nas/443/'+ event.protocol+'/' + key,value,0,function () {
+	// 		callback();
+	// 	});	
+	// });
 
 });
